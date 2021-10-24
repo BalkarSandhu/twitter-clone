@@ -1,3 +1,5 @@
+const ejs=require('ejs');
+
 module.exports.root=function(req,res){
-    res.send('<h1>Welcome to Twitter</h1>');
+    return res.render("home",{name:"Twitter"});
 }
