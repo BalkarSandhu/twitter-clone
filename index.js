@@ -1,10 +1,15 @@
 const express= require('express');
+const {json,urlencoded}=require('body-parser');
 const router=require('./src/routes/index');
 var expressLayouts = require('express-ejs-layouts');
 const connect = require('./src/config/database');
+const cors=require('cors');
 
 
 const app=express();
+app.use(json());
+app.use(urlencoded({extended:true}));
+app.use(cors());
 
 app.use(express.static(__dirname+'/src/assets'));
 app.set('layout extractStyles',true);
