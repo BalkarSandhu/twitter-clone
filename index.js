@@ -1,5 +1,6 @@
 const express= require('express');
 const session=require('express-session');
+const MongoStore = require('connect-mongo');
 const passport=require('passport');
 const passportLocal=require('./src/config/passport-local-strategy');
 const {json,urlencoded}=require('body-parser');
@@ -29,7 +30,15 @@ app.use(session({
     resave:false,
     cookie:{
         max:600000
-    }
+    },
+    store:new MongoStore({
+        mongoUrl: 'mongodb://localhost/twitter_dev',
+        autoRemove:'disable'
+    },function(err){
+        if(err)console.error(err);
+
+        console.log("mongo store connected");
+    })
 }))
 
 app.use(passport.initialize());
