@@ -42,7 +42,7 @@ const create = function (req,res){
 }
 
 const createSession = function (req,res){
-   return res.status(200).end();
+   return res.redirect('/');
 }
 
 module.exports ={profile,signIn,signUp,create,createSession};
