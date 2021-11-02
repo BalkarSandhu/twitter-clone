@@ -13,8 +13,18 @@
 <div>
     <ul>
         <% for(tweet of tweets){ %> 
-            <li><%= tweet.content %></li>
-            <small><%=tweet.user.name %></small>
+            <h2><li><%= tweet.content %></li></h2>
+            <b><small><%=tweet.user.name %></small></b>
+            <div>
+                <% if(locals.user){ %> 
+                    <form action="/comments/create" method="post">
+                        <input type="text" name="content" placeholder="your comment">
+                        <input type="hidden" name="tweet" value="<%= tweet._id %>">
+                        <input type="submit" value="Add Comment">
+                    </form>
+                    <% } %> 
+            </div>
+            <hr>
         <% } %> 
     </ul>
 </div>

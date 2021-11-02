@@ -1,10 +1,10 @@
 const mongoose=require('mongoose');
 
-let tweetSchema=new mongoose.Schema({
+let commentSchema=new mongoose.Schema({
     content:{
         type:String,
         required:true,
-        minlength:10,
+        minlength:5,
         maxlength:300
     },
     user:{
@@ -12,14 +12,13 @@ let tweetSchema=new mongoose.Schema({
         ref:'user',
         required:true
     },
-    comments:[
-        {
+    tweet:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:'Comment'
+            ref:'Tweet'
         }
-    ]
+    
 },{timestamps:true});
 
-const Tweet=mongoose.model('Tweet',tweetSchema);
+const Comment=mongoose.model('Comment',commentSchema);
 
-module.exports=Tweet
+module.exports=Comment
