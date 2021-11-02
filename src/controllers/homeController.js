@@ -1,4 +1,13 @@
-
+const Tweet=require('../models/tweet');
 module.exports.root=function(req,res){
-    return res.render("home",{name:"Twitter"});
+    Tweet.find({}).populate('user').exec(function(err,tweets){
+        let fetchedTweets=tweets;
+        if(err){
+            console.error(err);
+            fetchedTweets={};
+
+        }
+    
+    return res.render("home",{name:"Twitter",tweets:fetchedTweets});
+    })
 }
