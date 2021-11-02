@@ -8,12 +8,20 @@ const router=require('./src/routes/index');
 var expressLayouts = require('express-ejs-layouts');
 const connect = require('./src/config/database');
 const cors=require('cors');
+const sassMiddleware=require('node-sass-middleware');
 
 
 const app=express();
 app.use(json());
 app.use(urlencoded({extended:true}));
 app.use(cors());
+app.use(sassMiddleware({
+    src:'./src/assets/scss',
+    dest:'./src/assets/css',
+    debug:true,
+    outputStyle:'expanded',
+    prefix:'/css'
+}));
 
 app.use(express.static(__dirname+'/src/assets'));
 app.set('layout extractStyles',true);
@@ -22,6 +30,7 @@ app.use(expressLayouts);
 app.set('layout',__dirname+'/src/views/layouts/layout');
 app.set('view engine','ejs');
 app.set('views','./src/views');
+
 
 
 app.use(session({
