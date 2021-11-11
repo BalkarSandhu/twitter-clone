@@ -32,12 +32,12 @@ const create = function (req,res){
          return;
       }
       if(!user){
-         User.create(req.body,function(err,res){
+         User.create(req.body,function(err,user){
             if(err){
                console.error(err)
                return;
             }
-            return res.redirect('/users/signin')
+            return res.redirect('/users/signin');
 
          })
       }

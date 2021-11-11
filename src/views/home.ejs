@@ -13,7 +13,14 @@
 <div>
     <ul>
         <% for(tweet of tweets){ %> 
-            <h2><li><%= tweet.content %></li></h2>
+           
+            <li><h2><%= tweet.content %></h2>
+
+                <% if(locals.user && locals.user.id == tweet.user._id){ %>
+                    <span><a href="/tweets/destroy/<%= tweet._id %>">Delete</a></span>
+                <% } %>
+
+            </li>
             <b><small><%=tweet.user.name %></small></b>
             <div>
                 <% if(locals.user){ %> 
@@ -23,6 +30,7 @@
                         <input type="submit" value="Add Comment">
                     </form>
                     <% } %> 
+                
             </div>
             <hr>
             <div>
