@@ -25,6 +25,15 @@
                     <% } %> 
             </div>
             <hr>
+            <div>
+                <% for(comment of tweet.comments){ %>
+                    <p>
+                        <%= comment.content %>
+                        <br>
+                        <small><%= comment.user.name %></small>
+                    </p>
+                    <% } %> 
+            </div>
         <% } %> 
     </ul>
 </div>
