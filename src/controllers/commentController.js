@@ -20,5 +20,19 @@ const create = function(req,res){
         }
     })
 }
+const destroyComment=function(req,res){
+    Comment.findById(req.params.id,function(err,comment){
+        if(err){
+            return res.redirect("/");
+        }
+        if(comment.user==req.user.id){
+            comment.remove();
+            return res.redirect('back');
+        }
+        else{
+            return res.redirect('back');
+        }
+    })
+}
 
-module.exports={create}
+module.exports={create,destroyComment};

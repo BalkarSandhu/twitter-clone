@@ -13,6 +13,7 @@ router.use('/comments',commentRouter);
 
 
 
+
 console.log("router up");
 
 module.exports= router;

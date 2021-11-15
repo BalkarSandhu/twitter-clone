@@ -17,7 +17,9 @@
             <li><h2><%= tweet.content %></h2>
 
                 <% if(locals.user && locals.user.id == tweet.user._id){ %>
-                    <span><a href="/tweets/destroy/<%= tweet._id %>">Delete</a></span>
+                    <form action="/tweets/destroy/<%= tweet._id %>" method="get">
+                    <input type="submit" value="Remove">
+                </form>
                 <% } %>
 
             </li>
@@ -29,8 +31,7 @@
                         <input type="hidden" name="tweet" value="<%= tweet._id %>">
                         <input type="submit" value="Add Comment">
                     </form>
-                    <% } %> 
-                
+                    <% } %>
             </div>
             <hr>
             <div>
@@ -38,6 +39,12 @@
                     <p>
                         <%= comment.content %>
                         <br>
+                        <% if(locals.user && locals.user.id == comment.user._id){ %>
+                            <form action="/comments/destroy/<%= comment._id %>" method="get">
+                            <input type="submit" value="Remove">
+                        </form>
+                        <% } %> 
+                    
                         <small><%= comment.user.name %></small>
                     </p>
                     <% } %> 
