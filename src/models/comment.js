@@ -4,7 +4,6 @@ let commentSchema=new mongoose.Schema({
     content:{
         type:String,
         required:true,
-        minlength:5,
         maxlength:300
     },
     user:{

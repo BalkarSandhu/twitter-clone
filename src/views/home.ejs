@@ -13,43 +13,9 @@
 <div>
     <ul>
         <% for(tweet of tweets){ %> 
+            <%- include('./tweets/_tweet') %>
            
-            <li><h2><%= tweet.content %></h2>
-
-                <% if(locals.user && locals.user.id == tweet.user._id){ %>
-                    <form action="/tweets/destroy/<%= tweet._id %>" method="get">
-                    <input type="submit" value="Remove">
-                </form>
-                <% } %>
-
-            </li>
-            <b><small><%=tweet.user.name %></small></b>
-            <div>
-                <% if(locals.user){ %> 
-                    <form action="/comments/create" method="post">
-                        <input type="text" name="content" placeholder="your comment">
-                        <input type="hidden" name="tweet" value="<%= tweet._id %>">
-                        <input type="submit" value="Add Comment">
-                    </form>
-                    <% } %>
-            </div>
-            <hr>
-            <div>
-                <% for(comment of tweet.comments){ %>
-                    <p>
-                        <%= comment.content %>
-                        <br>
-                        <% if(locals.user && locals.user.id == comment.user._id){ %>
-                            <form action="/comments/destroy/<%= comment._id %>" method="get">
-                            <input type="submit" value="Remove">
-                        </form>
-                        <% } %> 
-                    
-                        <small><%= comment.user.name %></small>
-                    </p>
-                    <% } %> 
-            </div>
-        <% } %> 
+            <% } %> 
     </ul>
 </div>
 

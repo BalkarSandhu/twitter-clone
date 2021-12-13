@@ -26,8 +26,12 @@ const destroyComment=function(req,res){
             return res.redirect("/");
         }
         if(comment.user==req.user.id){
+            let tweetId=comment.tweet;
             comment.remove();
-            return res.redirect('back');
+            Tweet.findByIdAndUpdate(tweetId,{$pull:{comments:req.params.id}},function(err,tweet){
+                return res.redirect('back');
+            })
+            
         }
         else{
             return res.redirect('back');
