@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-let commentSchema=new mongoose.Schema({
+const commentSchema=new mongoose.Schema({
     content:{
         type:String,
         required:true,
@@ -8,12 +8,13 @@ let commentSchema=new mongoose.Schema({
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'user',
+        ref:'User',
         required:true
     },
     tweet:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:'Tweet'
+            ref:'Tweet',
+            required:true,
         }
     
 },{timestamps:true});

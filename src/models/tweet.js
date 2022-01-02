@@ -1,15 +1,15 @@
 const mongoose=require('mongoose');
 
-let tweetSchema=new mongoose.Schema({
+const tweetSchema=new mongoose.Schema({
     content:{
-        type:String,
+        type: String,
         required:true,
-        minlength:10,
+        minlength:5,
         maxlength:300
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'user',
+        ref:'User',
         required:true
     },
     comments:[

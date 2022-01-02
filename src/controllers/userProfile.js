@@ -1,7 +1,30 @@
 const User=require('../models/user');
 
 const profile = function(req,res){
-   return res.render('users/user_profile');
+   User.findById(req.params.id,function(err,user){
+      if(!user){
+         return res.redirect("/");
+      }
+      return res.render('users/user_profile',{
+         title:"User Profile",
+         profile_user:user
+      });
+   })
+   
+}
+const update=function(req,res){
+   if(req.user.id==req.params.id){
+      User.findByIdAndUpdate(req.user.id,req.body,function(err,user){
+         if(err){
+            console.log("Error updating user");
+            return res.redirect("/")
+         }
+         res.redirect('back');
+      })
+   }
+   else{
+      res.status(401).send("Unauthorised");
+   }
 }
 
 const signUp=function(req,res){
@@ -56,4 +79,4 @@ const destroySession=function (req,res){
    return res.redirect('/');
 }
 
-module.exports ={profile,signIn,signUp,create,createSession,destroySession};
+module.exports ={profile,update,signIn,signUp,create,createSession,destroySession};

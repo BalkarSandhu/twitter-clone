@@ -1,21 +1,27 @@
 const Tweet=require('../models/tweet');
-module.exports.root=function(req,res){
-    Tweet.find({})
+const User=require('../models/user');
+
+module.exports.root= async function(req,res){
+    try{
+        const tweets= await Tweet.find({})
     .populate('user')
     .populate({
         path:'comments',
         populate:{
             path:'user'
         }
-    })
-    .exec(function(err,tweets){
-        let fetchedTweets=tweets;
-        if(err){
-            console.error(err);
-            fetchedTweets={};
+    }).sort({"createdAt":-1}).exec();
+    let fetchedTweets=tweets;
+    const users =await User.find({});
 
-        }
+    return res.render("home",
+    {name:"Twitter",
+    tweets:fetchedTweets,
+    users:users})
+    }
+    catch (err){
+        console.log(err);
+        return;
+    }
     
-    return res.render("home",{name:"Twitter",tweets:fetchedTweets});
-    })
 }

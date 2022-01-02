@@ -1,34 +1,34 @@
 const Tweet =require('../models/tweet');
-const comment =require('../models/comment');
+const Comment =require('../models/comment');
 
-const create = function(req,res){
-    Tweet.create({
-        content:req.body.content,
-        user:req.user._id
-    },function(err,user){
-        if(err)console.error(err);
+const create = async function(req,res){
+    try{
+        await Tweet.create({
+            content:req.body.content,
+            user:req.user._id
+        })
+        return res.redirect('back');
+    }
+    catch(err){
+        console.log(err);
         return;
-    })
-    return res.redirect('back');
+    }
 }
 
-const destroy=function(req,res){
-    Tweet.findById(req.params.id,function(err,tweet){
-        if(err){
-            return res.redirect("/");
-        }
-        if(tweet.user==req.user.id){
-            tweet.remove();
-            comment.deleteMany({tweet:req.params.id},function(err){
-                    return res.redirect('back');
-            });
-        }
-        else{
+const destroy=async function(req,res){
+    try{
+        const tweet=await Tweet.findById(req.params.id);
+            if(tweet.user==req.user.id){
+                tweet.remove();
+                
+                Comment.deleteMany({tweet:req.params.id});
+            }
             return res.redirect('back');
         }
-
-
-    })
+    catch(err){
+        console.log(err);
+        return res.redirect("/");
+    }
 }
 
-module.exports={create,destroy}
+module.exports={create,destroy};
