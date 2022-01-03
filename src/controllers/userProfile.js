@@ -5,6 +5,7 @@ const profile = function(req,res){
       if(!user){
          return res.redirect("/");
       }
+      
       return res.render('users/user_profile',{
          title:"User Profile",
          profile_user:user
@@ -31,6 +32,7 @@ const signUp=function(req,res){
    if(req.isAuthenticated()){
       return res.redirect('/users/profile');
    }
+   
    return res.render('users/user_sign_up',{
       title:"Twitter | Sign Up"
    });
@@ -76,6 +78,7 @@ const createSession = function (req,res){
 
 const destroySession=function (req,res){
    req.logout();
+   req.flash('success',"logged out successfully")
    return res.redirect('/');
 }
 

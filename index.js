@@ -8,13 +8,15 @@ const router=require('./src/routes/index');
 var expressLayouts = require('express-ejs-layouts');
 const connect = require('./src/config/database');
 const cors=require('cors');
+const flash=require('connect-flash');
 const sassMiddleware=require('node-sass-middleware');
-
+const {SetFlash}=require('./src/config/flashMW');
 
 const app=express();
 app.use(json());
 app.use(urlencoded({extended:true}));
 app.use(cors());
+
 app.use(sassMiddleware({
     src:'./src/assets/scss',
     dest:'./src/assets/css',
@@ -53,6 +55,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAutheticatedUser);
+app.use(flash());
+app.use(SetFlash);
 app.use('/',router);
 
 
