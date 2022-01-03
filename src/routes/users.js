@@ -17,7 +17,7 @@ router.get('/signup',signUp);
 router.get('/signin',signIn);
 router.post('/create',create);
 router.post("/update/:id",passport.checkAuthentication,update);
-router.post('/create-session',passport.authenticate('local', { successRedirect: '/',
+router.post('/create-session',passport.authenticate('local', {
 failureRedirect: '/signin' }),createSession);
 
 router.get('/signout',destroySession);
