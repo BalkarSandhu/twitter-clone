@@ -7,6 +7,7 @@ const create = async function(req,res){
             content:req.body.content,
             user:req.user._id
         })
+        req.flash('info','Tweet Created');
         return res.redirect('back');
     }
     catch(err){

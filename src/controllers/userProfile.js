@@ -76,14 +76,14 @@ const create = function (req,res){
 }
 
 const createSession = function (req,res){
-   req.flash('success',"logged in successfully")
+   req.flash('info',"logged in successfully")
    return res.redirect('/');
 }
 
 const destroySession=function (req,res){
    req.logout();
    
-   req.flash('success',"logged out successfully")
+   req.flash('info',"logged out successfully")
    return res.redirect('/');
 }
 
